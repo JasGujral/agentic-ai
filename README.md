@@ -1,5 +1,17 @@
 # agentic-ai
 
+[![Tests](https://github.com/JasGujral/agentic-ai/actions/workflows/tests.yml/badge.svg)](https://github.com/JasGujral/agentic-ai/actions/workflows/tests.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/JasGujral/agentic-ai)](https://github.com/JasGujral/agentic-ai/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/JasGujral/agentic-ai)](https://github.com/JasGujral/agentic-ai/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/JasGujral/agentic-ai?style=social)](https://github.com/JasGujral/agentic-ai/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/JasGujral/agentic-ai?style=social)](https://github.com/JasGujral/agentic-ai/network/members)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant-purple.svg)](CODE_OF_CONDUCT.md)
+[![Built from scratch](https://img.shields.io/badge/frameworks-none-orange.svg)](#)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+
 AI agents from first principles — companion code for the **Agentic AI Builder's Series** on Substack.
 
 No frameworks. No magic. Just math, code, and clear explanations.
@@ -10,7 +22,7 @@ No frameworks. No magic. Just math, code, and clear explanations.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/hmostack/agentic-ai.git
+git clone https://github.com/JasGujral/agentic-ai.git
 cd agentic-ai
 
 # 2. Install with uv

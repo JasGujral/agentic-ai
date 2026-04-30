@@ -7,10 +7,13 @@ class OllamaLLM(BaseLLM):
         self.model = model
         self.base_url = base_url
 
-    def __call__(self, messages: list[dict]) -> str:
+    def __call__(self, messages: list[dict], stop_sequences: list[str] | None = None) -> str:
+        payload = {"model": self.model, "messages": messages, "stream": False}
+        if stop_sequences:
+            payload["options"] = {"stop": stop_sequences}
         response = httpx.post(
             f"{self.base_url}/api/chat",
-            json={"model": self.model, "messages": messages, "stream": False},
+            json=payload,
         )
         return response.json()["message"]["content"]
 

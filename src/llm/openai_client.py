@@ -8,12 +8,15 @@ class OpenAILLM(BaseLLM):
         self.model = model
         self.max_tokens = max_tokens
 
-    def __call__(self, messages: list[dict]) -> str:
-        response = self.client.chat.completions.create(
+    def __call__(self, messages: list[dict], stop_sequences: list[str] | None = None) -> str:
+        kwargs = dict(
             model=self.model,
             max_tokens=self.max_tokens,
             messages=messages,  # OpenAI uses system role inline
         )
+        if stop_sequences:
+            kwargs["stop"] = stop_sequences
+        response = self.client.chat.completions.create(**kwargs)
         return response.choices[0].message.content
 
     def provider_name(self) -> str:

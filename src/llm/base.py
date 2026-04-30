@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class BaseLLM(ABC):
     @abstractmethod
-    def __call__(self, messages: list[dict]) -> str:
+    def __call__(self, messages: list[dict], stop_sequences: list[str] | None = None) -> str:
         """Send messages and return text response."""
         pass
 

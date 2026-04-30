@@ -34,7 +34,7 @@ def agent(
         if verbose:
             print(f"\n--- Turn {turn + 1} ---")
 
-        response = llm(messages)
+        response = llm(messages, stop_sequences=["PAUSE"])
 
         if verbose:
             print(response)

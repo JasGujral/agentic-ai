@@ -17,8 +17,9 @@ Thanks for your interest in contributing! This project is the companion code for
 
 ### Submitting Code
 
-1. **Fork** the repo and create a branch from `master`:
+1. **Fork** the repo and create a branch from `develop`:
    ```bash
+   git checkout develop
    git checkout -b feature/your-feature-name
    ```
 
@@ -45,11 +46,13 @@ Thanks for your interest in contributing! This project is the companion code for
    git commit -m "Add: brief description of what you added"
    ```
 
-7. **Push** and open a Pull Request against `master`
+7. **Push** and open a Pull Request against `develop`
 
 ## Pull Request Guidelines
 
 - Keep PRs focused — one feature or fix per PR
+- Target `develop` for all feature and fix PRs
+- Only `develop → master` PRs are used for production releases
 - Reference any related issues (e.g., "Fixes #12")
 - Include a description of what changed and why
 - Make sure all tests pass

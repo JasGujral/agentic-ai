@@ -24,6 +24,7 @@ No frameworks. No magic. Just math, code, and clear explanations.
 # 1. Clone the repo
 git clone https://github.com/JasGujral/agentic-ai.git
 cd agentic-ai
+git checkout develop  # development happens here
 
 # 2. Install with uv
 uv sync
@@ -31,7 +32,7 @@ uv sync --extra anthropic  # or: --extra openai, --extra all
 
 # 3. Set your API key
 cp .env.example .env
-# Edit .env with your key
+# Edit .env with your key (loaded automatically via python-dotenv)
 
 # 4. Run the demo
 uv run python examples/demo_basic.py
@@ -132,6 +133,22 @@ system_prompt = build_react_prompt(tools)
 ```
 
 See `examples/demo_custom_tool.py` for a complete example.
+
+---
+
+## Branching Model
+
+This project follows a **git-flow** branching strategy:
+
+| Branch | Purpose |
+|--------|---------|
+| `master` | Production-ready releases only |
+| `develop` | Integration branch (default) — all PRs target here |
+| `feature/*` | New features — branch from `develop` |
+| `fix/*` | Bug fixes — branch from `develop` |
+| `hotfix/*` | Urgent production fixes — branch from `master`, merge back to both |
+
+> **Contributors:** always branch from and PR into `develop`. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 

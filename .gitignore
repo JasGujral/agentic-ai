@@ -10,3 +10,4 @@ wheels/
 .mypy_cache/
 .ipynb_checkpoints/
 .vscode/
+REPO_SPEC.md

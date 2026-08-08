@@ -29,7 +29,7 @@ No frameworks. No magic. Just math, code, and clear explanations.
 # 1. Clone the branch for the article you're reading
 git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
 cd agentic-ai
-# (or just `git clone …` for main = the newest published article)
+# (`main` = the newest published article. `develop` runs ahead with unpublished work.)
 
 # 2. Install with uv
 uv sync
@@ -75,15 +75,17 @@ Question
 
 ## Branches
 
-**One branch per article.** Article N's branch holds the code for Articles 1..N and stops there,
-so reading in order never spoils the next abstraction. `main` always equals the newest
-**published** article, and the repo's default branch (`develop`) is kept equal to `main` — so a
-bare `git clone` also gives you the newest published state.
+**One branch per article.** Each article branch is a snapshot of the codebase as it stood when
+that article was published — the aggregated code for Articles 1..N, and nothing after. So reading
+in order never spoils an abstraction you haven't met yet.
+
+`main` is the newest published state. `develop` runs ahead of it with the article currently being
+written.
 
 | Article | Branch | Status |
 |---------|--------|--------|
 | 1. What Are AI Agents, Really? | `article-01-what-are-agents` | published 2026-04-22 · = `main` |
-| 2. What Every Production Agent Is Made Of | `article-02-production-anatomy` | in progress |
+| 2. What Every Production Agent Is Made Of | *(branch cut at publication)* | in progress on `develop` |
 
 ```bash
 git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
@@ -91,8 +93,8 @@ git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.
 
 A later article may change an earlier article's abstractions — Article 2 turns Article 1's
 string-in/string-out `Tool` into a typed schema, for instance. That is deliberate, and it is
-exactly why the branches exist: the code gets to grow with the teaching without stranding anyone
-mid-series.
+exactly why the snapshots exist: the code grows with the teaching, and readers of an earlier
+article stay on a snapshot taken before the change existed.
 
 ---
 
@@ -171,15 +173,15 @@ nothing after.**
 
 | Branch | Purpose |
 |--------|---------|
-| `article-NN-slug` | One per article. Cut from the previous article's branch. What readers clone. |
-| `main` | Always equals the newest **published** article's branch |
-| `develop` | The repo's default branch — kept fast-forwarded to `main`, so a bare clone gives the newest published state |
-| `article-NN-published` *(tag)* | Annotated tag recording what an article shipped with. History, not the recommended checkout — fixes land on the branch afterwards |
+| `develop` | Ongoing progress — all work lands here, including the article being written |
+| `article-NN-slug` | A snapshot cut from `develop` when article N is published. What readers clone |
+| `main` | Consolidation — the newest published snapshot |
+| `article-NN-published` *(tag)* | Immutable record of what an article shipped with. A snapshot branch may take later fixes; the tag never moves |
 | `master` | Legacy, from the previous git-flow setup. Not used |
 
-**Contributors:** branch from the **earliest article branch your change affects**, never only the
-tip — a fix to shared code has to be merged forward through every later branch. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+**Contributors:** work against `develop`. If you're fixing something in already-published code,
+say which article it affects — the fix goes to `develop` and is cherry-picked back to that
+article's snapshot. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

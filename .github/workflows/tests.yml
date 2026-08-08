@@ -1,12 +1,12 @@
 name: Tests
 
-# Every article branch is a branch a reader can clone, so every article branch must be green —
-# not just the tip. See the branch rule in CLAUDE.md.
+# develop is where work lands; article-** snapshots are what readers clone; main is the published
+# consolidation. All three must be green. See the branch rule in CLAUDE.md.
 on:
   push:
-    branches: [main, 'article-**']
+    branches: [develop, main, 'article-**']
   pull_request:
-    branches: [main, 'article-**']
+    branches: [develop, main, 'article-**']
 
 jobs:
   test:

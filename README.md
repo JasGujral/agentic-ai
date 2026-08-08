@@ -182,9 +182,10 @@ nothing after.**
 | `main` | Consolidation — the newest published snapshot |
 | `article-NN-published` *(tag)* | Immutable record of what an article shipped with. A snapshot branch may take later fixes; the tag never moves |
 
-**Contributors:** work against `develop`. If you're fixing something in already-published code,
-say which article it affects — the fix goes to `develop` and is cherry-picked back to that
-article's snapshot. See [CONTRIBUTING.md](CONTRIBUTING.md).
+**Contributors:** branch from `develop` and open a pull request back into it — `develop` is the
+shared integration branch, and PRs are how parallel work comes together. If you're fixing
+something in already-published code, say which article it affects: the fix goes to `develop` and
+is cherry-picked back to that article's snapshot. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

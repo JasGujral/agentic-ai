@@ -11,3 +11,7 @@ wheels/
 .ipynb_checkpoints/
 .vscode/
 REPO_SPEC.md
+
+# Local workspace files — not part of the public companion repo
+CLAUDE.md
+STATUS.md

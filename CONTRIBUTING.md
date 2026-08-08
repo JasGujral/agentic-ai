@@ -17,11 +17,18 @@ Thanks for your interest in contributing! This project is the companion code for
 
 ### Submitting Code
 
-1. **Fork** the repo and create a branch from `develop`:
+1. **Fork** the repo and branch from the article branch your change belongs to.
+
+   This repo has **one branch per article** — `article-NN-slug` — each containing the code for
+   that article and everything before it, nothing after. `main` tracks the newest published
+   article. Branch from the **earliest** article your change affects:
    ```bash
-   git checkout develop
-   git checkout -b feature/your-feature-name
+   git checkout article-01-what-are-agents   # the earliest branch your change affects
+   git checkout -b fix/your-fix-name
    ```
+   A fix to shared code must reach every later branch, so it starts at the earliest one and is
+   merged forward. If you're unsure which branch to target, open an issue and ask — getting this
+   wrong is the one mistake that breaks the reading experience for everyone.
 
 2. **Install** dev dependencies:
    ```bash
@@ -46,13 +53,17 @@ Thanks for your interest in contributing! This project is the companion code for
    git commit -m "Add: brief description of what you added"
    ```
 
-7. **Push** and open a Pull Request against `develop`
+7. **Push** and open a Pull Request against the article branch you started from
 
 ## Pull Request Guidelines
 
 - Keep PRs focused — one feature or fix per PR
-- Target `develop` for all feature and fix PRs
-- Only `develop → master` PRs are used for production releases
+- Target the **earliest article branch** your change affects — never only the tip
+- Fixes are merged forward branch by branch, in order, up to `main`
+- `main` is only ever fast-forwarded to a published article's branch; nothing is merged into it
+  directly
+- **Never** add code to an article branch that its article does not explain — that branch is a
+  reader's whole view of the project
 - Reference any related issues (e.g., "Fixes #12")
 - Include a description of what changed and why
 - Make sure all tests pass

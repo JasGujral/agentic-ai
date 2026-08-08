@@ -20,11 +20,16 @@ No frameworks. No magic. Just math, code, and clear explanations.
 
 ## Quick Start
 
+> **📖 Reading the series? Clone the branch for the article you're on.**
+> Each article has its own branch containing the code for that article **and everything before
+> it — nothing after**. So you never meet an abstraction the article hasn't explained yet.
+> See [Branches](#branches) below.
+
 ```bash
-# 1. Clone the repo
-git clone https://github.com/JasGujral/agentic-ai.git
+# 1. Clone the branch for the article you're reading
+git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
 cd agentic-ai
-git checkout develop  # development happens here
+# (or just `git clone …` for main = the newest published article)
 
 # 2. Install with uv
 uv sync
@@ -65,6 +70,28 @@ Question
    ▼
  Answer
 ```
+
+---
+
+## Branches
+
+**One branch per article.** Article N's branch holds the code for Articles 1..N and stops there,
+so reading in order never spoils the next abstraction. `main` always equals the newest
+**published** article.
+
+| Article | Branch | Status |
+|---------|--------|--------|
+| 1. What Are AI Agents, Really? | `article-01-what-are-agents` | published 2026-04-22 · = `main` |
+| 2. What Every Production Agent Is Made Of | `article-02-production-anatomy` | in progress |
+
+```bash
+git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
+```
+
+A later article may change an earlier article's abstractions — Article 2 turns Article 1's
+string-in/string-out `Tool` into a typed schema, for instance. That is deliberate, and it is
+exactly why the branches exist: the code gets to grow with the teaching without stranding anyone
+mid-series.
 
 ---
 

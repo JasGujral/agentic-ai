@@ -77,7 +77,8 @@ Question
 
 **One branch per article.** Article N's branch holds the code for Articles 1..N and stops there,
 so reading in order never spoils the next abstraction. `main` always equals the newest
-**published** article.
+**published** article, and the repo's default branch (`develop`) is kept equal to `main` — so a
+bare `git clone` also gives you the newest published state.
 
 | Article | Branch | Status |
 |---------|--------|--------|
@@ -165,17 +166,20 @@ See `examples/demo_custom_tool.py` for a complete example.
 
 ## Branching Model
 
-This project follows a **git-flow** branching strategy:
+The reader guarantee above drives the whole model: **Article N's branch contains Articles 1..N and
+nothing after.**
 
 | Branch | Purpose |
 |--------|---------|
-| `master` | Production-ready releases only |
-| `develop` | Integration branch (default) — all PRs target here |
-| `feature/*` | New features — branch from `develop` |
-| `fix/*` | Bug fixes — branch from `develop` |
-| `hotfix/*` | Urgent production fixes — branch from `master`, merge back to both |
+| `article-NN-slug` | One per article. Cut from the previous article's branch. What readers clone. |
+| `main` | Always equals the newest **published** article's branch |
+| `develop` | The repo's default branch — kept fast-forwarded to `main`, so a bare clone gives the newest published state |
+| `article-NN-published` *(tag)* | Annotated tag recording what an article shipped with. History, not the recommended checkout — fixes land on the branch afterwards |
+| `master` | Legacy, from the previous git-flow setup. Not used |
 
-> **Contributors:** always branch from and PR into `develop`. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+**Contributors:** branch from the **earliest article branch your change affects**, never only the
+tip — a fix to shared code has to be merged forward through every later branch. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

@@ -181,7 +181,6 @@ nothing after.**
 | `article-NN-slug` | A snapshot cut from `develop` when article N is published. What readers clone |
 | `main` | Consolidation — the newest published snapshot |
 | `article-NN-published` *(tag)* | Immutable record of what an article shipped with. A snapshot branch may take later fixes; the tag never moves |
-| `master` | Legacy, from the previous git-flow setup. Not used |
 
 **Contributors:** work against `develop`. If you're fixing something in already-published code,
 say which article it affects — the fix goes to `develop` and is cherry-picked back to that

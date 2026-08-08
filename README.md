@@ -24,6 +24,10 @@ No frameworks. No magic. Just math, code, and clear explanations.
 > Each article has its own branch containing the code for that article **and everything before
 > it — nothing after**. So you never meet an abstraction the article hasn't explained yet.
 > See [Branches](#branches) below.
+>
+> ⚠️ **The default branch is `develop`, which is work in progress** — it contains the article
+> currently being written. Don't read from it unless you want spoilers. Use the article branch,
+> or `main` for the newest published state.
 
 ```bash
 # 1. Clone the branch for the article you're reading

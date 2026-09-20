@@ -1,20 +1,18 @@
+"""Typed tool base (Article 2 upgrade of the Article-1 string Tool).
+
+A tool is a name, a description the model reads to choose it, and a typed Args
+schema it must fill to call it. Execution is the private __call__.
+"""
 from abc import ABC, abstractmethod
+
+from pydantic import BaseModel
 
 
 class Tool(ABC):
-    @property
-    @abstractmethod
-    def name(self) -> str:
-        """Tool name used in action parsing."""
-        pass
-
-    @property
-    @abstractmethod
-    def description(self) -> str:
-        """Description included in the system prompt."""
-        pass
+    name: str
+    description: str
+    Args: type[BaseModel]
 
     @abstractmethod
-    def __call__(self, input: str) -> str:
-        """Execute the tool and return a string result."""
-        pass
+    def __call__(self, args: BaseModel) -> str:
+        """Execute against validated args; return a result the loop can read."""

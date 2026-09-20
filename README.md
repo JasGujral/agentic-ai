@@ -89,7 +89,7 @@ written.
 | Article | Branch | Status |
 |---------|--------|--------|
 | 1. What Are AI Agents, Really? | `article-01-what-are-agents` | published 2026-04-22 · = `main` |
-| 2. What Every Production Agent Is Made Of | *(branch cut at publication)* | in progress on `develop` |
+| 2. What Every Production Agent Is Made Of | `article-02-what-agents-are-made-of` | staged · not yet published |
 
 ```bash
 git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
@@ -107,6 +107,7 @@ article stay on a snapshot taken before the change existed.
 | Article | Notebook | Key Modules |
 |---------|----------|-------------|
 | 1. What Are AI Agents, Really? | `notebooks/01_what_are_agents.ipynb` | `src/llm/`, `src/tools/`, `src/loop/`, `src/prompts/` |
+| 2. What Every Production Agent Is Made Of | `examples/full_agent.py` | `src/reasoning/`, `src/planning/`, `src/evaluation/`, `src/memory/`, `src/orchestration/`, `src/guardrails/`, `src/tools/` (typed base + `builtins`, `Registry`) — deps: `instructor`, `tenacity`, `tiktoken` |
 
 ---
 

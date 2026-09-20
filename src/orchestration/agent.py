@@ -1,5 +1,5 @@
 """Orchestration: the loop that wires the components and enforces termination."""
-from src.reasoning.decision import Final
+from src.reasoning.decision import Final, Clarify
 from src.reasoning.engine import decide_resilient as decide     # tenacity-wrapped
 from src.tools.registry import Registry
 from src.evaluation.gate import evaluate
@@ -12,7 +12,7 @@ class Agent:
         self.max_steps = max_steps
         self.memory = Memory(budget=budget)
 
-    def run(self, goal: str, criteria: str) -> str:
+    def run(self, goal: str, criteria: str, ask_user=input) -> str:
         for step in range(1, self.max_steps + 1):               # bounded loop
             history = "\n".join(self.memory.context(goal))
             decision = decide(goal, self.tools.describe(), history)      # reasoning
@@ -23,6 +23,11 @@ class Agent:
                     return decision.answer                      # soft exit: accepted
                 self.memory.add(f"rejected (too weak): {feedback}")
                 continue                                        # try again, with the feedback
+
+            if isinstance(decision, Clarify):                   # ambiguous — ask the user
+                answer = ask_user(decision.question)            # human in the loop
+                self.memory.add(f"user answered: {answer}")
+                continue
 
             observation = self.tools.dispatch(decision.tool, decision.args)   # tools
             self.memory.add(f"{decision.tool}({decision.args}) -> {observation}")  # remember

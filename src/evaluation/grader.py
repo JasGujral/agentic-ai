@@ -1,11 +1,13 @@
 """LLM-as-judge on a SEPARATE model: never let the actor grade its own work."""
+import os
+
 import instructor
 from anthropic import Anthropic
 
 from src.evaluation.verdict import Verdict
 
 judge = instructor.from_anthropic(Anthropic())
-JUDGE_MODEL = "claude-opus-4-1"   # a separate, stronger model — never the actor's own
+JUDGE_MODEL = os.getenv("JUDGE_MODEL", "claude-opus-4-1")   # a separate, stronger model — never the actor's own
 
 
 def grade(goal: str, result: str, criteria: str) -> Verdict:

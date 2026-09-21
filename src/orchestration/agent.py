@@ -1,4 +1,5 @@
-"""Orchestration: the loop that wires the components and enforces termination."""
+"""Orchestration: the loop that wires all seven components and enforces termination."""
+from src.planning.planner import make_plan
 from src.reasoning.decision import Final, Clarify
 from src.reasoning.engine import decide_resilient as decide     # tenacity-wrapped
 from src.tools.registry import Registry
@@ -13,6 +14,9 @@ class Agent:
         self.memory = Memory(budget=budget)
 
     def run(self, goal: str, criteria: str, ask_user=input) -> str:
+        plan = make_plan(goal, self.tools.describe())           # planning: decompose up front
+        self.memory.add("plan:\n" + "\n".join(                  # seed steps AND their success bars
+            f"- {s.action}  (done when: {s.success})" for s in plan.steps))
         for step in range(1, self.max_steps + 1):               # bounded loop
             history = "\n".join(self.memory.context(goal))
             decision = decide(goal, self.tools.describe(), history)      # reasoning

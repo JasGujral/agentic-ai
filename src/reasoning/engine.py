@@ -1,4 +1,6 @@
 """The reasoning engine: constrain the model to emit a typed, validated Decision."""
+import os
+
 import instructor
 from anthropic import Anthropic, APIConnectionError, RateLimitError
 from tenacity import (retry, retry_if_exception_type,
@@ -7,7 +9,7 @@ from tenacity import (retry, retry_if_exception_type,
 from src.reasoning.decision import Decision
 
 client = instructor.from_anthropic(Anthropic())
-MODEL = "claude-sonnet-4-5"   # any capable model works
+MODEL = os.getenv("AGENT_MODEL", "claude-sonnet-4-5")   # override via env; any capable model works
 
 
 def decide(goal: str, tools, history: str = "") -> Decision:

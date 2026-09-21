@@ -16,8 +16,8 @@ def run(goal: str, tools: list[str]) -> list[str]:
         done, failed = set(), False
         while len(done) < len(plan.steps):
             step = plan.ready(done)[0]
-            result = execute(step)                 # do one small task      (tools)       # noqa: F821
-            if not evaluate(goal, step, result):   # check it in isolation  (evaluation)  # noqa: F821
+            result = execute(step)                       # do one small task           (tools)       # noqa: F821
+            if not evaluate(goal, result, step.success): # grade against the step's own bar (evaluation) # noqa: F821
                 failed = True
                 break                              # re-plan from what's confirmed
             done.add(step.id)

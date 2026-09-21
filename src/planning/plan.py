@@ -6,6 +6,7 @@ class Step(BaseModel):
     id: int
     action: str = Field(description="What to do in this step")
     tool: str = Field(description="Tool this step will call")
+    success: str = Field(description="What a good result for THIS step looks like")
     depends_on: list[int] = Field(default_factory=list)   # ids that must finish first
 
 

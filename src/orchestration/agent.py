@@ -13,7 +13,7 @@ class Agent:
         self.max_steps = max_steps
         self.memory = Memory(budget=budget)
 
-    def run(self, goal: str, criteria: str, ask_user=input) -> str:
+    def run(self, goal: str, criteria: str, ask_user=input, checks: tuple = ()) -> str:
         plan = make_plan(goal, self.tools.describe())           # planning: decompose up front
         self.memory.add("plan:\n" + "\n".join(                  # seed steps AND their success bars
             f"- {s.action}  (done when: {s.success})" for s in plan.steps))
@@ -23,7 +23,7 @@ class Agent:
             decision = decide(goal, self.tools.describe(), history)      # reasoning
 
             if isinstance(decision, Final):                     # a candidate answer
-                ok, feedback = evaluate(goal, decision.answer, criteria)  # final gate: vs the caller's criteria
+                ok, feedback = evaluate(goal, decision.answer, criteria, checks)  # final gate: hard checks + soft judge
                 if ok:
                     return decision.answer                      # soft exit: accepted
                 self.memory.add(f"rejected (too weak): {feedback}")

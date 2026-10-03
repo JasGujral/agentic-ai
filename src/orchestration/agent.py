@@ -31,7 +31,9 @@ class Agent:
 
             if isinstance(decision, Clarify):                   # ambiguous — ask the user
                 answer = ask_user(decision.question)            # human in the loop
-                self.memory.add(f"user answered: {answer}")
+                self.memory.add(f"user answered: {answer}")     # working memory: this run
+                self.memory.remember(f"Q: {decision.question} -> A: {answer}",
+                                     key=decision.question)      # long-term: don't ask this again
                 continue
 
             observation = self.tools.dispatch(decision.tool, decision.args)   # tools

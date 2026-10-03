@@ -17,12 +17,13 @@ class Agent:
         plan = make_plan(goal, self.tools.describe())           # planning: decompose up front
         self.memory.add("plan:\n" + "\n".join(                  # seed steps AND their success bars
             f"- {s.action}  (done when: {s.success})" for s in plan.steps))
-        for step in range(1, self.max_steps + 1):               # bounded loop
+        pending = list(plan.steps)                              # step bars still to satisfy, in order
+        for _ in range(self.max_steps):                         # bounded loop
             history = "\n".join(self.memory.context(goal))
             decision = decide(goal, self.tools.describe(), history)      # reasoning
 
             if isinstance(decision, Final):                     # a candidate answer
-                ok, feedback = evaluate(goal, decision.answer, criteria)  # evaluation gate
+                ok, feedback = evaluate(goal, decision.answer, criteria)  # final gate: vs the caller's criteria
                 if ok:
                     return decision.answer                      # soft exit: accepted
                 self.memory.add(f"rejected (too weak): {feedback}")
@@ -35,5 +36,13 @@ class Agent:
 
             observation = self.tools.dispatch(decision.tool, decision.args)   # tools
             self.memory.add(f"{decision.tool}({decision.args}) -> {observation}")  # remember
+
+            if pending:                                         # per-step gate: vs this step's own bar
+                ok, feedback = evaluate(goal, observation, pending[0].success)
+                if ok:
+                    self.memory.add(f"step confirmed: {pending[0].action}")
+                    pending.pop(0)                              # bank the win, advance the plan
+                else:
+                    self.memory.add(f"step not yet met: {feedback}")   # keep going, with the note
 
         return "stopped: reached max_steps"                     # hard stop

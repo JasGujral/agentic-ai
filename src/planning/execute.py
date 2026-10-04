@@ -17,7 +17,8 @@ def run(goal: str, tools: list[str]) -> list[str]:
         while len(done) < len(plan.steps):
             step = plan.ready(done)[0]
             result = execute(step)                       # do one small task           (tools)       # noqa: F821
-            if not evaluate(goal, result, step.success): # grade against the step's own bar (evaluation) # noqa: F821
+            ok, _ = evaluate(step.action, result, step.success)  # grade the step on its own objective (evaluation) # noqa: F821
+            if not ok:                             # evaluate() returns (passed, reason) — same as agent.py
                 failed = True
                 break                              # re-plan from what's confirmed
             done.add(step.id)

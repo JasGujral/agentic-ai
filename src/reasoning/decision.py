@@ -1,4 +1,4 @@
-"""A decision the reasoning engine returns: a typed ToolCall or Final, not prose."""
+"""A decision the reasoning engine returns: a typed ToolCall, Clarify, or Final, not prose."""
 from typing import Annotated, Literal, Union
 
 from pydantic import BaseModel, Field

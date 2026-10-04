@@ -40,7 +40,7 @@ class Agent:
             self.memory.add(f"{decision.tool}({decision.args}) -> {observation}")  # remember
 
             if pending:                                         # per-step gate: vs this step's own bar
-                ok, feedback = evaluate(goal, observation, pending[0].success)
+                ok, feedback = evaluate(pending[0].action, observation, pending[0].success)
                 if ok:
                     self.memory.add(f"step confirmed: {pending[0].action}")
                     pending.pop(0)                              # bank the win, advance the plan

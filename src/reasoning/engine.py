@@ -13,15 +13,16 @@ MODEL = os.getenv("AGENT_MODEL", "claude-sonnet-4-5")   # override via env; any 
 
 
 def decide(goal: str, tools, history: str = "") -> Decision:
-    """Ask the model for the next step as a ToolCall or Final (instructor validates + re-asks)."""
+    """Ask the model for the next step as a ToolCall, a Clarify, or a Final (instructor validates + re-asks)."""
     return client.messages.create(
         model=MODEL,
         max_tokens=1024,
-        response_model=Decision,   # the model must return a ToolCall or a Final
+        response_model=Decision,   # the model must return a ToolCall, a Clarify, or a Final
         max_retries=2,             # re-ask on a ValidationError
         messages=[{"role": "user",
                    "content": f"Goal: {goal}\nTools: {tools}\n{history}"
-                              f"Decide the next step: call a tool, or give the final answer."}],
+                              f"Decide the next step: call a tool, ask the user to clarify, "
+                              f"or give the final answer."}],
     )
 
 

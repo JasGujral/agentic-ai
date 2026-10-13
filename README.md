@@ -88,8 +88,9 @@ written.
 
 | Article | Branch | Status |
 |---------|--------|--------|
-| 1. What Are AI Agents, Really? | `article-01-what-are-agents` | published 2026-04-22 · = `main` |
-| 2. What Every Production Agent Is Made Of | `article-02-what-agents-are-made-of` | staged · not yet published |
+| 1. What Are AI Agents, Really? | `article-01-what-are-agents` | published 2026-04-22 |
+| 2. What Every Production Agent Is Actually Made Of | `article-02-what-agents-are-made-of` | published 2026-10-06 · = `main` |
+| 3. When to Give Your Agent Subagents (and When Not To) | `article-03-subagents` | in progress · not yet cut |
 
 ```bash
 git clone -b article-01-what-are-agents https://github.com/JasGujral/agentic-ai.git
@@ -107,7 +108,24 @@ article stay on a snapshot taken before the change existed.
 | Article | Notebook | Key Modules |
 |---------|----------|-------------|
 | 1. What Are AI Agents, Really? | `notebooks/01_what_are_agents.ipynb` | `src/llm/`, `src/tools/`, `src/loop/`, `src/prompts/` |
-| 2. What Every Production Agent Is Made Of | `examples/full_agent.py` | `src/reasoning/`, `src/planning/`, `src/evaluation/`, `src/memory/`, `src/orchestration/`, `src/guardrails/`, `src/tools/` (typed base + `builtins`, `Registry`) — deps: `instructor`, `tenacity`, `tiktoken` |
+| 2. What Every Production Agent Is Actually Made Of | `examples/full_agent.py` | the seven components (below) — deps: `instructor`, `tenacity`, `tiktoken` |
+| 3. When to Give Your Agent Subagents (and When Not To) | `notebooks/03_subagents.ipynb` · `examples/subagent_demo.py` | `src/subagents/` (`workspace`, `summary`, `spawn`, `ledger`, `fanout`); `Tool.read_only`; `Agent(memory=…)` |
+
+---
+
+## The Seven Components (Article 2)
+
+Article 2 turns a bare agent into a dependable one, one component at a time. Each lives in its own module — run them together with `uv run python examples/full_agent.py`.
+
+| # | Component | Module(s) | What it adds |
+|---|-----------|-----------|--------------|
+| 1 | Reasoning engine | `src/reasoning/` (`decision.py`, `engine.py`) | typed, validated decisions instead of parsed prose (`instructor`); transient-failure retries (`tenacity`) |
+| 2 | Tools | `src/tools/` (`base.py`, `builtins.py`, `registry.py`) | actions through a typed `Args` schema + a `Registry` that validates and dispatches |
+| 3 | Memory | `src/memory/` (`memory.py`) | a `tiktoken` token budget (recency window) + a keyed, persistable long-term store |
+| 4 | Planning | `src/planning/` (`plan.py`, `planner.py`, `execute.py`) | a validated DAG of steps, each with its own success bar |
+| 5 | Evaluation | `src/evaluation/` (`verdict.py`, `grader.py`, `check.py`, `gate.py`) | a separate-model judge **plus** grounded checks that verify against the world |
+| 6 | Orchestration | `src/orchestration/` (`agent.py`) | the bounded loop that wires all seven and enforces termination |
+| 7 | Guardrails | `src/guardrails/` (`guard.py`) | pre-act / post-act checks + a human-approval gate around tool dispatch |
 
 ---
 

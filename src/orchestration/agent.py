@@ -8,10 +8,11 @@ from src.memory.memory import Memory
 
 
 class Agent:
-    def __init__(self, tools: Registry, max_steps: int = 8, budget: int = 4000):
+    def __init__(self, tools: Registry, max_steps: int = 8, budget: int = 4000,
+                 memory: Memory | None = None):
         self.tools = tools
         self.max_steps = max_steps
-        self.memory = Memory(budget=budget)
+        self.memory = memory if memory is not None else Memory(budget=budget)   # Article 3: inject a fresh one
 
     def run(self, goal: str, criteria: str, ask_user=input, checks: tuple = ()) -> str:
         plan = make_plan(goal, self.tools.describe())           # planning: decompose up front

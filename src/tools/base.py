@@ -2,6 +2,8 @@
 
 A tool is a name, a description the model reads to choose it, and a typed Args
 schema it must fill to call it. Execution is the private __call__.
+
+Article 3 adds one flag, `read_only`: many agents may read, only one may write.
 """
 from abc import ABC, abstractmethod
 
@@ -12,6 +14,7 @@ class Tool(ABC):
     name: str
     description: str
     Args: type[BaseModel]
+    read_only: bool = False   # Article 3: True if the tool only reads. Subagents may hold only these.
 
     @abstractmethod
     def __call__(self, args: BaseModel) -> str:
